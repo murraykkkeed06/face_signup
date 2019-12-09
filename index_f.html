@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="/public/style.css">	
+<script src="/face-api.js/dist/face-api.js"></script>
+<script type="text/javascript" src="/webcamjs-master/webcam.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+</head>
+<style>
+    #my_camera{
+     width: 320px;
+     height: 240px;
+     border: 1px solid black;
+    }
+    </style>
+
+<body>
+
+
+
+                <label for="files">Select three  selfie: </label>
+                <input id="files" type="file" multiple/>
+                <output id="result" />
+                
+        
+        
+               
+                <br>
+                <br>
+                  <input id="myText" type="text" name="name" value="Micky">
+                  <br>
+                  <button onclick="myFunction()">train</button>
+        
+
+                <p id="demo"></p>
+
+                <div id="my_camera"></div>
+                <button onclick="set_webcam()">turn on webcam</button>
+                <input type=button value="Take Snapshot" onClick="take_snapshot()" >
+                
+                <div id="results" ></div>
+
+
+                <button onclick="recognize()">recognize</button>
+
+                <p id="final"></p>
+
+
+<script>
+
+var faceMatcher;
+
+window.onload = function(){
+    //Check File API support
+    if(window.File && window.FileList && window.FileReader)
+    {
+        var filesInput = document.getElementById("files");
+        var num = 0;
+        filesInput.addEventListener("change", function(event){
+            var files = event.target.files; //FileList object
+            var output = document.getElementById("result");
+            for(var i = 0; i< files.length; i++)
+            {
+                
+                console.log(document.getElementById("files").value);
+                var file = files[i];
+                //Only pics
+                if(!file.type.match('image'))
+                    continue;
+                var picReader = new FileReader();
+                picReader.addEventListener("load",function(event){
+                    var picFile = event.target;
+                    var div = document.createElement("div");
+                    //console.log(picFile.name);
+                    div.innerHTML = "<img class='thumbnail'" +" id='"+num+"' src='" + picFile.result + "'" +
+                    "title='" + picFile.name + "'/>";
+                    console.log(div.innerHTML);
+                    output.insertBefore(div,null);
+                    num++;
+                });
+                //Read the image
+                picReader.readAsDataURL(file);
+            }
+        });
+
+
+    }
+    else
+    {
+        console.log("Your browser does not support File API");
+    }
+
+}
+
+async function myFunction(){
+
+    
+    await faceapi.loadSsdMobilenetv1Model('/models')
+    await faceapi.loadFaceLandmarkModel('/models')
+    await faceapi.loadFaceRecognitionModel('/models')
+
+    console.log(faceapi.nets);
+    
+    input1 = document.getElementById('0');
+    input2 = document.getElementById('1');
+    input3 = document.getElementById('2');
+
+    alert(document.getElementById("myText").value);
+
+    var username = document.getElementById("myText").value;
+
+    console.log(input1.src);
+        
+    const singleResulto1 = await faceapi
+        .detectSingleFace(input1)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+        const singleResulto2 = await faceapi
+        .detectSingleFace(input2)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+        const singleResulto3 = await faceapi
+        .detectSingleFace(input3)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+
+        const labeledDescriptors = [
+        new faceapi.LabeledFaceDescriptors(
+            username,
+            [singleResulto1.descriptor, singleResulto2.descriptor, singleResulto3.descriptor]
+        )
+        ]
+
+        faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
+
+}
+
+
+</script>
+
+
+<script language="JavaScript">
+    function set_webcam(){
+
+        Webcam.set({
+     width: 320,
+     height: 240,
+     image_format: 'jpeg',
+     jpeg_quality: 90
+    });
+    Webcam.attach( '#my_camera' );
+
+    }
+    
+   
+   
+   function take_snapshot() {
+    
+    // take snapshot and get image data
+    Webcam.snap( function(data_uri) {
+     // display results in page
+     document.getElementById('results').innerHTML = 
+     '<img id="match" src="'+data_uri+'"/>';
+     } );
+
+     //console.log(document.getElementById('result').innerHTML);
+     document.getElementById("my_camera").style.display="none";
+     Webcam.reset();
+   }
+
+   
+   </script>
+
+<script>
+
+async function recognize(){
+
+    match = document.getElementById("match");
+    const singleResultmatch = await faceapi
+        .detectSingleFace(match)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+    const bestMatch = faceMatcher.findBestMatch(singleResultmatch.descriptor)
+    console.log(bestMatch.toString())
+    document.getElementById("final").innerHTML="Welcome back " + bestMatch.toString();
+}
+
+
+
+
+</script>
+
+
+</body>
+
+
+</html>

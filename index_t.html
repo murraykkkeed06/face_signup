@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+</head>
+<body>
+
+
+        <form id="post-form" class="post-form" method="post">
+                <label for="files">Select three  selfie: </label>
+                <input id="files" type="file" multiple/>
+                <output id="result" />
+                </form>
+        
+        
+                <form action="" id="myForm" onsubmit="myFunction()">
+                    
+                    <br>
+                    Name:
+                    <br>
+                    <input id="myText" type="text" name="name" value="Micky">
+                    <br><br>
+                    <input type="submit" value="Submit">
+                  </form> 
+        
+
+                <p id="demo"></p>
+<script>
+window.onload = function(){
+    //Check File API support
+    if(window.File && window.FileList && window.FileReader)
+    {
+        var filesInput = document.getElementById("files");
+        filesInput.addEventListener("change", function(event){
+            var files = event.target.files; //FileList object
+            var output = document.getElementById("result");
+            for(var i = 0; i< files.length; i++)
+            {
+                console.log(document.getElementById("files").value);
+                var file = files[i];
+                //Only pics
+                if(!file.type.match('image'))
+                    continue;
+                var picReader = new FileReader();
+                picReader.addEventListener("load",function(event){
+                    var picFile = event.target;
+                    var div = document.createElement("div");
+                    //console.log(picFile.name);
+                    div.innerHTML = "<img class='thumbnail'" +" id='"+i+"' src='" + picFile.result + "'" +
+                    "title='" + picFile.name + "'/>";
+                    output.insertBefore(div,null);
+                });
+                //Read the image
+                picReader.readAsDataURL(file);
+            }
+        });
+
+
+    }
+    else
+    {
+        console.log("Your browser does not support File API");
+    }
+
+}
+
+function myFunction(){
+
+    alert(document.getElementById("myText").value);
+    
+    
+
+}
+
+
+</script>
+
+
+</body>
+
+
+</html>

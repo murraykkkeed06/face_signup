@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/public/style.css">	
+<script src="/face-api.js/dist/face-api.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+</head>
+<body>
+
+
+
+<img id = "myImg" src="/people.jpg" />
+<canvas id="overlay">
+	
+</canvas>
+
+<script> 
+
+
+
+
+
+	async function run(){
+
+
+
+		await faceapi.loadSsdMobilenetv1Model('/models')
+		await faceapi.loadFaceLandmarkModel('/models')
+		await faceapi.loadFaceRecognitionModel('/models')
+	
+		console.log(faceapi.nets);
+
+
+		input = document.getElementById('myImg');
+
+		const detections = await faceapi.detectAllFaces(input)
+
+
+		const detectionsForSize = faceapi.resizeResults(detections, { width: input.width, height: input.height })
+
+		const canvas = document.getElementById('overlay')
+
+		canvas.width = input.width
+		canvas.height = input.height
+		
+		await faceapi.draw.drawDetections(canvas, detectionsForSize)
+
+	
+
+
+	}
+	
+  	 
+    $(document).ready(function() {
+    	run();
+    });
+
+		
+
+	
+	</script>
+
+</body>
+</html>

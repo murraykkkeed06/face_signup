@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/public/style.css">	
+<script src="/face-api.js/dist/face-api.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+</head>
+<body>
+
+
+
+<img id = "myImg1" src="" />
+<img id = "myImg2" src="" />
+<img id = "myImg3" src="" />
+<img id = "myImg4" src="" />
+<img id = "myImg5" src="" />
+<img id = "myImg6" src="" />
+<img id = "match" src="match.jpg" />
+<canvas id="overlay">
+	
+</canvas>
+
+<script> 
+
+    async function load(){
+        document.getElementById("myImg1").src = "/obama1.jpg";
+        document.getElementById("myImg2").src = "/obama2.jpg";
+        document.getElementById("myImg3").src = "/obama3.jpg";
+        document.getElementById("myImg4").src = "/biden1.jpg";
+        document.getElementById("myImg5").src = "/biden2.jpg";
+        document.getElementById("myImg6").src = "/biden3.jpg";
+
+
+    }
+
+
+
+	async function run(){
+
+        
+        await load();
+
+		await faceapi.loadSsdMobilenetv1Model('/models')
+		await faceapi.loadFaceLandmarkModel('/models')
+		await faceapi.loadFaceRecognitionModel('/models')
+	
+		console.log(faceapi.nets);
+
+
+        input1 = document.getElementById('myImg1');
+        input2 = document.getElementById('myImg2');
+        input3 = document.getElementById('myImg3');
+        input4 = document.getElementById('myImg4');
+        input5 = document.getElementById('myImg5');
+        input6 = document.getElementById('myImg6');
+
+        match = document.getElementById("match");
+        
+        const singleResulto1 = await faceapi
+        .detectSingleFace(input1)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+        const singleResulto2 = await faceapi
+        .detectSingleFace(input2)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+        const singleResulto3 = await faceapi
+        .detectSingleFace(input3)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+        const singleResultb1 = await faceapi
+        .detectSingleFace(input4)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+        const singleResultb2 = await faceapi
+        .detectSingleFace(input5)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+        const singleResultb3 = await faceapi
+        .detectSingleFace(input6)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+        const singleResultmatch = await faceapi
+        .detectSingleFace(match)
+        .withFaceLandmarks()
+        .withFaceDescriptor()
+
+
+
+        const labeledDescriptors = [
+        new faceapi.LabeledFaceDescriptors(
+            'obama',
+            [singleResulto1.descriptor, singleResulto2.descriptor, singleResulto3.descriptor]
+        ),
+        new faceapi.LabeledFaceDescriptors(
+            'biden',
+            [singleResultb1.descriptor, singleResultb2.descriptor, singleResultb3.descriptor]
+        )
+        ]
+
+        const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
+
+        const bestMatch = faceMatcher.findBestMatch(singleResultmatch.descriptor)
+        console.log(bestMatch.toString())
+
+
+
+
+        
+
+
+	}
+	
+  	 
+    $(document).ready(function() {
+    	run();
+    });
+
+		
+
+	
+	</script>
+
+</body>
+</html>
