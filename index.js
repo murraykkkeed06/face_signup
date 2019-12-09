@@ -31,7 +31,7 @@ app.get('/', function(req, res){
 app.get('/', (req, res) => res.redirect('/index'));
 
 app.get('/index',function(req,res){
-   res.sendFile(path.join(__dirname+'/form_html.html'));
+   res.sendFile(path.join(__dirname+'/login_form.html'));
    //__dirname : It will resolve to your project folder.
  });
 /*
