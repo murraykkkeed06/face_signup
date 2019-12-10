@@ -50,7 +50,7 @@
                
                 <br>
                 <br>
-                  <input id="myText" type="text" name="name" value="Micky">
+                  <input id="myText" type="text" name="name" required>
                   <br>
                   <button onclick="myFunction()">train</button>
                 
@@ -164,7 +164,12 @@ async function myFunction(){
         alert(document.getElementById("myText").value);
         //console.log(singleResulto1.descriptor)
         //module.exports = singleResulto1.descriptor;
-        $.post("/face_check", {face_num: singleResulto1.descriptor});
+        $.post("/face_check", {
+            name: username, 
+            face1: singleResulto1.descriptor,
+            face2: singleResulto2.descriptor,
+            face3: singleResulto3.descriptor
+        });
 }
 
 
