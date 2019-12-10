@@ -15,7 +15,7 @@ var Face = mongoose.model("Face", faceSchema);
 
 app.get('/face_show', function(req, res){
    Face.find(function(err, response){
-      res.json(response);
+      res.send(response);
    });
 });
 

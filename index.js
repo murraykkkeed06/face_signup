@@ -26,9 +26,9 @@ var Person = mongoose.model("Person", personSchema);
 
 var faceSchema = mongoose.Schema({
    name: String,
-   face1: Number,
-   face2: Number,
-   face3: Number
+   face1: Array ,
+   face2: Array,
+   face3: Array 
 });
 
 var Face = mongoose.model("Face", faceSchema);
@@ -154,23 +154,43 @@ app.post('/face_check',function (req, res){
 
    var faceInfo = req.body; //Get the parsed information
    console.log(faceInfo.name);
-   console.log(faceInfo.face1);
+   console.log(faceInfo.face1.length);
+   console.log(faceInfo.face2.length);
+   console.log(faceInfo.face3.length);
+  
+/*
+   var arr = [];
+   for (var i = 0; i < 81; ++i) {
+   arr.push( i );
+   }
+
+   Face.create({name:faceInfo.name, face1: arr }).
+   then(doc => {
+      console.log(doc);
+      process.exit(0);
+   });
+  */
+   
    var newFace = new Face({
       name: faceInfo.name,
-      face1: faceInfo.face1,
+      face1: 1,
       face2: faceInfo.face2,
       face3: faceInfo.face3
 
    });
-   
+
+
+   //console.log(arr);    
    newFace.save(function(err, Face){
       if(err)
          console.log(err);
-      else
+      else{
          console.log("success saveing face ino");
-   });
+         console.log(newFace.face1);
+      }
+      });
 
-      
+    
 
    
 
