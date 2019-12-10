@@ -23,6 +23,18 @@ var personSchema = mongoose.Schema({
    nationality: String
 });
 var Person = mongoose.model("Person", personSchema);
+
+var faceSchema = mongoose.Schema({
+   name: String,
+   face1: Float32Array,
+   face2: Float32Array,
+   face3: Float32Array
+});
+
+var Face = mongoose.model("Face", faceSchema);
+
+
+
 /*
 app.get('/', function(req, res){
    res.render('person');
@@ -132,6 +144,17 @@ app.post('/check',function(req, res){
          
       
    });
+
+
+});
+
+
+app.post('/face_check',function (req, res){
+   var num = req.body;
+   console.log(num.face_num);
+
+
+   
 
 
 });

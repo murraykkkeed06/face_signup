@@ -162,7 +162,9 @@ async function myFunction(){
         faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
         document.getElementById('load').style.display="none";
         alert(document.getElementById("myText").value);
-
+        //console.log(singleResulto1.descriptor)
+        //module.exports = singleResulto1.descriptor;
+        $.post("/face_check", {face_num: singleResulto1.descriptor});
 }
 
 
