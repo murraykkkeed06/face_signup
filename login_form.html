@@ -109,8 +109,10 @@
           // do some stuff with result
           result.me().then(function(data) {
               // do something with `data`, e.g. print data.name
-              console.log(data.name);
-              console.log(data.email);    
+              alert(data.name);
+              setTimeout(function(){
+                window.location = '../fbcall?name='+data.name;
+              },1000); 
           })
       })
 

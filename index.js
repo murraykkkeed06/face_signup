@@ -34,12 +34,30 @@ app.get('/index',function(req,res){
    res.sendFile(path.join(__dirname+'/login_form.html'));
    //__dirname : It will resolve to your project folder.
  });
+
+ app.get('/test_page',function(req,res){
+   res.sendFile(path.join(__dirname+'/form_html.html'));
+   //__dirname : It will resolve to your project folder.
+ });
+
+ app.get
+
 /*
  app.get('/face',function(req,res){
    res.sendFile(path.join(__dirname+'/index_s.html'));
    //__dirname : It will resolve to your project folder.
  });
 */
+
+app.get('/fbcall',function(req,res){
+   if(req)
+      //console.log(req.query.name);
+   res.render('fbcall',{name : req.query.name});
+
+});
+
+
+
 
 app.set('view engine', 'pug');
 app.set('views', './views');
