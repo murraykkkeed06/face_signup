@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost/my_db');
 
 var personSchema = mongoose.Schema({
    name: String,
-   age: Number,
+   password: String,
    nationality: String
 });
 var Person = mongoose.model("Person", personSchema);
@@ -58,13 +58,13 @@ app.use(express.static('public'));
 app.post('/', function(req, res){
    var personInfo = req.body; //Get the parsed information
    
-   if(!personInfo.name || !personInfo.age || !personInfo.nationality){
+   if(!personInfo.name || !personInfo.password || !personInfo.nationality){
       res.render('show_message', {
          message: "Sorry, you provided worng info", type: "error"});
    } else {
       var newPerson = new Person({
          name: personInfo.name,
-         age: personInfo.age,
+         password: personInfo.password,
          nationality: personInfo.nationality
       });
 		
@@ -76,11 +76,50 @@ app.post('/', function(req, res){
                message: "New person added in database", type: "success", person: personInfo});
       });
 
-      Person.find(function(err, response){
-         console.log(response);
-      });
+      
 
    }
 });
+
+app.post('/check',function(req, res){
+
+   var userInfo = req.body;
+/*
+   if(!userInfo.username || !userInfo.password){
+      res.render('welcome_back', {
+         message: "Sorry, you provided worng info", type: "error"});
+   }
+   else
+      res.render('welcome_back', {message: "hi", type:"success", person: userInfo})
+
+   //console.log(userInfo.username);
+*/
+
+   Person.find({name: userInfo.username , password: userInfo.password}, "nationality", 
+      function(err, response){
+      
+         if(response[0] == null){
+            res.render('welcome_back', {
+               message: "Sorry, you provided worng info", type: "error"
+            });
+      
+         }
+         else{
+            res.render('welcome_back', {
+               message: "hi", type:"success", person: userInfo, country: response[0].nationality
+            });
+
+         }
+            
+         
+      
+   });
+
+
+});
+
+
+
+
 
 app.listen(3000);
