@@ -15,6 +15,26 @@
      height: 240px;
      border: 1px solid black;
     }
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 40px;
+      height: 40px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     </style>
 
 <body>
@@ -33,7 +53,8 @@
                   <input id="myText" type="text" name="name" value="Micky">
                   <br>
                   <button onclick="myFunction()">train</button>
-        
+                
+                  <div id="load" class="loader" style="display:none"></div>
 
                 <p id="demo"></p>
 
@@ -97,6 +118,7 @@ window.onload = function(){
 
 async function myFunction(){
 
+    document.getElementById('load').style.display="block";
     
     await faceapi.loadSsdMobilenetv1Model('/models')
     await faceapi.loadFaceLandmarkModel('/models')
@@ -108,7 +130,7 @@ async function myFunction(){
     input2 = document.getElementById('1');
     input3 = document.getElementById('2');
 
-    alert(document.getElementById("myText").value);
+    
 
     var username = document.getElementById("myText").value;
 
@@ -138,6 +160,8 @@ async function myFunction(){
         ]
 
         faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
+        document.getElementById('load').style.display="none";
+        alert(document.getElementById("myText").value);
 
 }
 
@@ -189,7 +213,9 @@ async function recognize(){
 
     const bestMatch = faceMatcher.findBestMatch(singleResultmatch.descriptor)
     console.log(bestMatch.toString())
-    document.getElementById("final").innerHTML="Welcome back " + bestMatch.toString();
+    var n = bestMatch.toString().search("unknown");
+    if (n<0){document.getElementById("final").innerHTML="Welcome back " + bestMatch.toString();}
+    else document.getElementById("final").innerHTML="Cannot recognize";
 }
 
 
