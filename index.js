@@ -24,16 +24,35 @@ var personSchema = mongoose.Schema({
 });
 var Person = mongoose.model("Person", personSchema);
 
+
+var numSchema = mongoose.Schema({num: Number});
+
 var faceSchema = mongoose.Schema({
    name: String,
-   face1: Array ,
-   face2: Array,
-   face3: Array 
+   face1: [numSchema] ,
+   face2: [numSchema] ,
+   face3: [numSchema] 
 });
+
+
 
 var Face = mongoose.model("Face", faceSchema);
 
 
+
+
+//console.log((new ToyBox()).toys); // []
+/*
+var Empty1 = new ToyBox({ toys: [{name:123},{name:456}]});//[]
+Empty1.toys[0].name = 789;
+
+Empty1.save(function(err,ToyBox){
+   if(err)
+      console.log(err);
+   else
+      console.log("success");
+});
+*/
 
 /*
 app.get('/', function(req, res){
@@ -170,14 +189,31 @@ app.post('/face_check',function (req, res){
       process.exit(0);
    });
   */
-   
+
+ 
+   var emptyls = []
+
+   for (var i = 0; i < faceInfo.face1.length; i++) {
+      emptyls.push({
+          num: 999,
+      });
+  }
+
    var newFace = new Face({
       name: faceInfo.name,
-      face1: 1,
-      face2: faceInfo.face2,
-      face3: faceInfo.face3
-
+      face1: emptyls,
+      face2: emptyls,
+      face3: emptyls
    });
+
+
+   for(var i=0; i<faceInfo.face1.length; i++){
+      newFace.face1[i].num=faceInfo.face1[i];
+      newFace.face2[i].num=faceInfo.face2[i];
+      newFace.face3[i].num=faceInfo.face3[i];
+   }
+
+   //console.log(faceInfo.face1[0]);
 
 
    //console.log(arr);    
@@ -185,7 +221,7 @@ app.post('/face_check',function (req, res){
       if(err)
          console.log(err);
       else{
-         console.log("success saveing face ino");
+         console.log("success saveing face into");
          console.log(newFace.face1);
       }
       });

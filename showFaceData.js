@@ -4,14 +4,20 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/my_db');
 
+var numSchema = mongoose.Schema({num: Number});
+
 var faceSchema = mongoose.Schema({
    name: String,
-   face1: Number,
-   face2: Number,
-   face3: Number
+   face1: [numSchema] ,
+   face2: [numSchema] ,
+   face3: [numSchema] 
 });
 
+
+
 var Face = mongoose.model("Face", faceSchema);
+
+
 
 app.get('/face_show', function(req, res){
    Face.find(function(err, response){
