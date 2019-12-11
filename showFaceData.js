@@ -15,7 +15,7 @@ var faceSchema = mongoose.Schema({
 
 
 
-var Face = mongoose.model("Face", faceSchema);
+var Face = mongoose.model("Face2", faceSchema);
 
 
 

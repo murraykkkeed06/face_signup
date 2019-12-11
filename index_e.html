@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="/public/style.css">	
+<script src="/face-api.js/dist/face-api.js"></script>
+<script type="text/javascript" src="/webcamjs-master/webcam.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+</head>
+<style>
+    #my_camera{
+     width: 320px;
+     height: 240px;
+     border: 1px solid black;
+    }
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 40px;
+      height: 40px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
+
+<body>
+
+        <div id="my_camera"></div>
+        <button onclick="set_webcam()">turn on webcam</button>
+        <input type=button value="Take Snapshot" onClick="take_snapshot()" >
+        
+        <div id="results" ></div>
+
+        
+        <button onclick="recognize()">recognize</button>
+        <div id="load" class="loader" style="display:none"></div>
+        <p id="final"></p>
+
+        <script language="JavaScript">
+                function set_webcam(){
+                    //document.getElementById("my_camera").style.display="none";
+                    Webcam.set({
+                    width: 320,
+                    height: 240,
+                    image_format: 'jpeg',
+                    jpeg_quality: 90
+                    });
+                    Webcam.attach( '#my_camera' );
+            
+                }
+                
+               
+               
+               function take_snapshot() {
+                
+                // take snapshot and get image data
+                Webcam.snap( function(data_uri) {
+                 // display results in page
+                 document.getElementById('results').innerHTML = 
+                 '<img id="match" src="'+data_uri+'"/>';
+                 } );
+            
+                 //console.log(document.getElementById('result').innerHTML);
+                 //document.getElementById("my_camera").style.display="none";
+                 Webcam.reset();
+               }
+            
+               
+               </script>
+            
+            <script>
+            
+            async function recognize(){
+                
+                document.getElementById('load').style.display="block";
+
+                await faceapi.loadSsdMobilenetv1Model('/models')
+                await faceapi.loadFaceLandmarkModel('/models')
+                await faceapi.loadFaceRecognitionModel('/models')
+               
+
+                match = document.getElementById("match");
+                const singleResultmatch = await faceapi
+                    .detectSingleFace(match)
+                    .withFaceLandmarks()
+                    .withFaceDescriptor()
+            
+                document.getElementById('load').style.display="none";
+                /*
+                $.get("/face_match", {
+                    match: singleResultmatch.descriptor
+                });
+                */
+               $.post("/face_match").then(function(res){
+                    console.log(res[0]);
+               });
+                alert("finish recognizing...")
+
+                
+
+
+                
+            //    const bestMatch = faceMatcher.findBestMatch(singleResultmatch.descriptor)
+            //    console.log(bestMatch.toString())
+            //    var n = bestMatch.toString().search("unknown");
+            //    if (n<0){document.getElementById("final").innerHTML="Welcome back " + bestMatch.toString();}
+            //    else document.getElementById("final").innerHTML="Cannot recognize";
+            }
+            
+            /*
+            const labeledDescriptors = [
+            new faceapi.LabeledFaceDescriptors(
+                username,
+                [singleResulto1.descriptor, singleResulto2.descriptor, singleResulto3.descriptor]
+            )
+            ]
+
+            faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
+            
+            */
+            
+            
+            </script>
+            
+
+
+
+
+</body>
+
+
+</html>

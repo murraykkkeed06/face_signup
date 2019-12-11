@@ -14,7 +14,7 @@ var Person = mongoose.model("Person", personSchema);
 
 app.get('/people', function(req, res){
    Person.find(function(err, response){
-      res.json(response);
+      res.send(response[0]);
    });
 });
 

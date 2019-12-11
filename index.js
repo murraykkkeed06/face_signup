@@ -36,7 +36,7 @@ var faceSchema = mongoose.Schema({
 
 
 
-var Face = mongoose.model("Face", faceSchema);
+var Face = mongoose.model("Face2", faceSchema);
 
 
 
@@ -234,6 +234,35 @@ app.post('/face_check',function (req, res){
 });
 
 
+
+
+app.post('/face_match',function(req, res){
+
+   //faceMatch = req.body;
+   //console.log(faceMatch.match);
+
+   Face.find(function(err, response){
+
+      res.send(response);
+     // console.log(Object.keys(response[0])[0]);
+      //console.log(response);
+   }
+   );
+//var count = Object.keys(myObject).length;
+   //res.send({name: "test", age: "test"});
+   
+});
+
+/*
+app.get('/face_result',function(req, res){
+
+   newFace.find   
+
+
+   res.render('show_face_reading_msg',{message: "test", type: "test", name: "test"})
+
+})
+*/
 
 
 

@@ -58,16 +58,7 @@
 
                 <p id="demo"></p>
 
-                <div id="my_camera"></div>
-                <button onclick="set_webcam()">turn on webcam</button>
-                <input type=button value="Take Snapshot" onClick="take_snapshot()" >
                 
-                <div id="results" ></div>
-
-
-                <button onclick="recognize()">recognize</button>
-
-                <p id="final"></p>
 
 
 <script>
@@ -151,7 +142,7 @@ async function myFunction(){
         .withFaceLandmarks()
         .withFaceDescriptor()
 
-
+        /*
         const labeledDescriptors = [
         new faceapi.LabeledFaceDescriptors(
             username,
@@ -160,8 +151,10 @@ async function myFunction(){
         ]
 
         faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
+        
+        */
         document.getElementById('load').style.display="none";
-        alert(document.getElementById("myText").value);
+        alert("succes sign up");
         //console.log(singleResulto1.descriptor)
         //module.exports = singleResulto1.descriptor;
         $.post("/face_check", {
@@ -170,65 +163,20 @@ async function myFunction(){
             face2: singleResulto2.descriptor,
             face3: singleResulto3.descriptor
         });
+
+        
+        setTimeout(function(){
+            window.location = "../login_form.html";
+        },1000);
+
+
+
 }
 
 
 </script>
 
 
-<script language="JavaScript">
-    function set_webcam(){
-
-        Webcam.set({
-     width: 320,
-     height: 240,
-     image_format: 'jpeg',
-     jpeg_quality: 90
-    });
-    Webcam.attach( '#my_camera' );
-
-    }
-    
-   
-   
-   function take_snapshot() {
-    
-    // take snapshot and get image data
-    Webcam.snap( function(data_uri) {
-     // display results in page
-     document.getElementById('results').innerHTML = 
-     '<img id="match" src="'+data_uri+'"/>';
-     } );
-
-     //console.log(document.getElementById('result').innerHTML);
-     document.getElementById("my_camera").style.display="none";
-     Webcam.reset();
-   }
-
-   
-   </script>
-
-<script>
-
-async function recognize(){
-
-    match = document.getElementById("match");
-    const singleResultmatch = await faceapi
-        .detectSingleFace(match)
-        .withFaceLandmarks()
-        .withFaceDescriptor()
-
-    const bestMatch = faceMatcher.findBestMatch(singleResultmatch.descriptor)
-    console.log(bestMatch.toString())
-    var n = bestMatch.toString().search("unknown");
-    if (n<0){document.getElementById("final").innerHTML="Welcome back " + bestMatch.toString();}
-    else document.getElementById("final").innerHTML="Cannot recognize";
-}
-
-
-
-
-</script>
 
 
 </body>
