@@ -21,7 +21,23 @@ var Face = mongoose.model("Face2", faceSchema);
 
 app.get('/face_show', function(req, res){
    Face.find(function(err, response){
-      res.send(response);
+
+      //res.json(response[0].face1[0].num);
+     // console.log(response[0].face1[0].num)
+      
+      var arr = []
+
+      for(var i=0; i<128; i++){
+         arr.push(response[0].face1[i].num);
+
+      }
+      console.log(response.length)
+
+      res.send(arr);
+
+     
+
+      //var count = Object.keys(myObject).length;
    });
 });
 

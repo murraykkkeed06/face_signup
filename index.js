@@ -87,6 +87,13 @@ app.get('/fbcall',function(req,res){
 
 });
 
+app.get('/face_final',function(req,res){
+   if(req)
+      //console.log(req.query.name);
+   res.render('fbcall',{name : req.query.name});
+
+});
+
 
 
 
