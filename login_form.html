@@ -36,7 +36,7 @@
                   
                       <button class="w3-button w3-round w3-ripple w3-blue" onClick="parent.location='index_f.html'" style="color:white" class="btn">Sign Up With Face</button>
                             
-                 
+                    
                       <button class="w3-button w3-round w3-ripple w3-blue" onclick="document.getElementById('id01').style.display='block'" style="color:white" class="btn">Sign Up With Password</button>
                 
                       <button id="facebook-button" class="w3-button w3-round w3-ripple w3-green">Login With Facebook
@@ -86,29 +86,41 @@
 
 
 
-<div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="/"  method = "POST">
-    <div class="container">
-      <h1>Sign Up</h1>
-      <p>Please fill in this form to create an account.</p>
-      <hr>
-      <label for="name"><b>Name</b></label>
-      <input type="text" placeholder="Enter Name" name="name" required>
 
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter password" name="password" required>
 
-      <label for="nationality"><b>nationality</b></label>
-      <input type="text" placeholder="Enter nationality" name="nationality" required>
-      
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Sign Up</button>
+
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+      <div class="w3-center"><br>
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
       </div>
+
+      <form class="w3-container" action="/"  method = "POST">
+        <div class="w3-section">
+          <label><b>Username</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="name" required>
+          <label><b>Password</b></label>
+          <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
+          <label><b>Nationality</b></label>
+          <input class="w3-input w3-border" type="text" placeholder="Enter Nationality" name="nationality" required>
+          <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Login</button>
+          
+        </div>
+      </form>
+
+      <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+        
+      </div>
+
     </div>
-  </form>
-</div>
+  </div>
+
+
+
+
+
 </div>
 
 <script>
