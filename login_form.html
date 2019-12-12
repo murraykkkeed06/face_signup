@@ -2,59 +2,88 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 <link rel="stylesheet" href="./login_style.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdn.rawgit.com/oauth-io/oauth-js/c5af4519/dist/oauth.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css">
+
 
 
 
 </head>
 
+<style>
+    .w3-myfont {
+      font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+    </style>
+
 <body>
 
-<div class="container">
-  
-    <div class="row">
-      <h2 style="text-align:center">Login with Social Media or Manually</h2>
-      <div class="vl">
-        <span class="vl-innertext">or</span>
+<div class="w3-container w3-myfont">
+    <div class="w3-container">
+        <div class="w3-container w3-center w3-round">
+          <p class = "w3-xxlarge" >Login with Social Media, Face or Manually</p>
       </div>
+      
+    </div>
+      <div class="w3-container">
+        
+          <div class="w3-row">
+              <div class="w3-half w3-container">
+                  
+                      <button class="w3-button w3-round w3-ripple w3-blue" onClick="parent.location='index_f.html'" style="color:white" class="btn">Sign Up With Face</button>
+                            
+                 
+                      <button class="w3-button w3-round w3-ripple w3-blue" onclick="document.getElementById('id01').style.display='block'" style="color:white" class="btn">Sign Up With Password</button>
+                
+                      <button id="facebook-button" class="w3-button w3-round w3-ripple w3-green">Login With Facebook
+                          <i class="w3-margin-left glyphicon glyphicon-home"></i>
+                        </button>
+                       
+                    
+                        <button  onClick="parent.location='index_e.html'" class="w3-button w3-round w3-ripple w3-green"> Login With Face </button>
+                      
+              </div>
+              <div class="w3-half w3-container">
+                  
+                    
+                    
+                      <div class="w3-card-4" >
+                          <div class="w3-container w3-green w3-center">
+                              <p class = "w3-xlarge" >Login</p>
+                          </div>
+                      
+                          <form class="w3-container" action="/check"  method = "POST">
+                            <p>
+                            <label>Username</label></p>
+                            <input class="w3-input" type="text" name="username" required>
+                            
+                            <p>     
+                                <label>Password</label></p>
+                            <input class="w3-input" type="password" name="password" required>
+                    
+                            <p>     
+                                <input class="w3-input" type="submit" value="Submit">
+                            </p>
+                          </form>
+                        </div>
 
-      <div class="col">
-        <a class="btn btn-block btn-social btn-facebook" id="facebook-button">
-          <i class="fa fa-facebook fa-fw"></i> Login with Facebook
-         </a>
-        <a onClick="parent.location='index_e.html'" class="twitter btn">
-          <i class="fa fa-twitter fa-fw"></i> Login with Face
-        </a>
+                        
+                    
+              </div>
+            </div>
+          
         
       </div>
-      <form class="modal-content" action="/check"  method = "POST">
-      <div class="col">
+     
+ 
 
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="Login">
-      </div>
-      </form>
-    </div>
-  
-</div>
 
-<div class="bottom-container">
-  <div class="row">
-    <div class="col">
-      
-      <a onclick="document.getElementById('id01').style.display='block'" style="color:white" class="btn">Sign Up</a>
-    </div>
-    <div class="col">
-      <a onClick="parent.location='index_f.html'" style="color:white" class="btn">sign up with face</a>
-    </div>
-  </div>
-</div>
+
+
 
 
 <div id="id01" class="modal">
@@ -73,15 +102,13 @@
       <label for="nationality"><b>nationality</b></label>
       <input type="text" placeholder="Enter nationality" name="nationality" required>
       
-   
-      <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-
       <div class="clearfix">
         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Create new Person</button>
+        <button type="submit" class="signupbtn">Sign Up</button>
       </div>
     </div>
   </form>
+</div>
 </div>
 
 <script>
