@@ -130,11 +130,13 @@ app.post('/', function(req, res){
       });
 		
       newPerson.save(function(err, Person){
-         if(err)
-            res.render('show_message', {message: "Database error", type: "error"});
-         else
-            res.render('show_message', {
-               message: "New person added in database", type: "success", person: personInfo});
+        if(err)
+               console.log("save error")
+          //  res.render('show_message', {message: "Database error", type: "error"});
+         //else
+            //alert("Sign Up Successfully " + name)
+           // res.render('show_message', {
+           //    message: "New person added in database", type: "success", person: personInfo});
       });
 
       
