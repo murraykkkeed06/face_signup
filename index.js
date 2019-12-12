@@ -66,6 +66,11 @@ app.get('/index',function(req,res){
    //__dirname : It will resolve to your project folder.
  });
 
+ app.get('/w3css_pra',function(req,res){
+   res.sendFile(path.join(__dirname+'/w3_form.html'));
+   //__dirname : It will resolve to your project folder.
+ });
+
  app.get('/test_page',function(req,res){
    res.sendFile(path.join(__dirname+'/form_html.html'));
    //__dirname : It will resolve to your project folder.
@@ -90,7 +95,7 @@ app.get('/fbcall',function(req,res){
 app.get('/face_final',function(req,res){
    if(req)
       //console.log(req.query.name);
-   res.render('fbcall',{name : req.query.name});
+   res.render('face_final',{name : req.query.name});
 
 });
 
