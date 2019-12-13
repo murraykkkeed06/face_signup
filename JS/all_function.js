@@ -1,7 +1,7 @@
 
 var faceMatcher;
 
-window.onload = function(){
+function select_three_file(){
     //Check File API support
     if(window.File && window.FileList && window.FileReader)
     {
@@ -39,6 +39,52 @@ window.onload = function(){
                 
                 window.location = "./index.html";
                
+            }
+        });
+
+
+    }
+    else
+    {
+        console.log("Your browser does not support File API");
+    }
+
+}
+
+
+
+function select_one_file(){
+    //Check File API support
+    if(window.File && window.FileList && window.FileReader)
+    {
+        var filesInput = document.getElementById("files_o");
+        
+        filesInput.addEventListener("change", function(event){
+            var files = event.target.files; //FileList object
+            var output = document.getElementById("img_s_o");
+            for(var i = 0; i< files.length; i++)
+            {
+                
+                console.log(document.getElementById("files_o").value);
+                var file = files[i];
+                //Only pics
+                if(!file.type.match('image'))
+                    continue;
+                var picReader = new FileReader();
+                picReader.addEventListener("load",function(event){
+                    var picFile = event.target;
+                    var div = document.createElement("div");
+                    var img_e_o = document.getElementById("img_e_o")
+                    //console.log(picFile.name);
+                    div.innerHTML = "<div class='w3-third w3-card-4'><img id='match' src='" + picFile.result + "'" +
+                    "title='" + picFile.name + "'/></div>";
+                    console.log(div.innerHTML);
+                    output.insertBefore(div,img_e_o);
+                    
+                });
+                //Read the image
+                picReader.readAsDataURL(file);
+                
             }
         });
 
@@ -122,50 +168,10 @@ async function myFunction(){
 
 
 
-function set_webcam(){
-            
-    //document.getElementById("my_camera").style.display="none";
-    Webcam.set({
-    width: 320,
-    height: 240,
-    image_format: 'jpeg',
-    jpeg_quality: 90
-    });
-    Webcam.attach( '#my_camera' );
-
-}
-function reset_webcam(){
-document.getElementById("my_camera").style.display="block";
-document.getElementById("take_btn").style.display="block";
-document.getElementById("recognize_btn").style.display="none";
-//set_webcam();
-document.getElementById("match").src="";
-Webcam.reset();
-
-}
 
 
-function take_snapshot() {
-document.getElementById("my_camera").style.display="none";
 
-document.getElementById("take_btn").style.display="none";
 
-document.getElementById("recognize_btn").style.display="block";
-
-// take snapshot and get image data
-Webcam.snap( function(data_uri) {
- // display results in page
- document.getElementById('results').innerHTML = 
- '<img class="w3-padding w3-card-4" id="match" src="'+data_uri+'"/>';
- } );
-
- //console.log(document.getElementById('result').innerHTML);
- //document.getElementById("my_camera").style.display="none";
-// document.getElementById('my_camera').style.display="block";
- //reset_webcam();
- Webcam.reset();
- 
-}
             
             async function recognize(){
                 

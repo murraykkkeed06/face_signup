@@ -11,7 +11,6 @@ var app = express();
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, './models')));
 app.use(express.static(path.join(__dirname, './face-api.js/dist')));
-app.use(express.static(path.join(__dirname, './webcamjs-master')));
 app.use(express.static(path.join(__dirname, './CSS')));
 app.use(express.static(path.join(__dirname, './JS')));
 
