@@ -35,19 +35,25 @@
 
 <body>
 
-        <div id="my_camera"></div>
-        <button onclick="set_webcam()">turn on webcam</button>
-        <input type=button value="Take Snapshot" onClick="take_snapshot()" >
         
+       
+        <button id="take_btn" onClick="take_snapshot()" >Take Snap Shot </button>
+         <div id="my_camera"></div>
         <div id="results" ></div>
+        <input type=button value="Recognize" onClick="recognize()" >
 
         
-        <button onclick="recognize()">recognize</button>
+        
         <div id="load" class="loader" style="display:none"></div>
         <p id="final"></p>
 
 
         <script language="JavaScript">
+            $( document ).ready(function() {
+                set_webcam();
+            });
+
+
                 function set_webcam(){
                     //document.getElementById("my_camera").style.display="none";
                     Webcam.set({
@@ -59,23 +65,29 @@
                     Webcam.attach( '#my_camera' );
             
                 }
-                
+               
                
                
                function take_snapshot() {
-                
+               document.getElementById("my_camera").style.display="none";
+
+               document.getElementById("take_btn").style.display="none";
+               
                 // take snapshot and get image data
                 Webcam.snap( function(data_uri) {
                  // display results in page
                  document.getElementById('results').innerHTML = 
-                 '<img id="match" src="'+data_uri+'"/>';
+                 '<img class="w3-border w3-padding" id="match" src="'+data_uri+'"/>';
                  } );
             
                  //console.log(document.getElementById('result').innerHTML);
                  //document.getElementById("my_camera").style.display="none";
+                // document.getElementById('my_camera').style.display="block";
                  Webcam.reset();
+                 
                }
             
+               
                
                </script>
             

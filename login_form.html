@@ -24,12 +24,6 @@
       font-family: "Comic Sans MS", cursive, sans-serif;
     }
   
-        #my_camera{
-         width: 320px;
-         height: 240px;
-         border: 1px solid black;
-        }
-
         
         .loader {
           border: 16px solid #f3f3f3;
@@ -68,18 +62,20 @@
           <div class="w3-row">
               <div class="w3-half w3-container">
                   
-                      <button class="w3-button w3-round w3-ripple w3-blue" onclick="document.getElementById('id01').style.display='block'" style="color:white" class="btn">Sign Up With Face</button>
+                      <button class="w3-button w3-round w3-ripple w3-blue" onclick="document.getElementById('id01').style.display='block'">Sign Up With Face</button>
                             
                     
-                      <button class="w3-button w3-round w3-ripple w3-blue" onclick="document.getElementById('id02').style.display='block'" style="color:white" class="btn">Sign Up With Password</button>
+                      <button class="w3-button w3-round w3-ripple w3-blue" onclick="document.getElementById('id02').style.display='block'" >Sign Up With Password</button>
                 
-                      <button id="facebook-button" class="w3-button w3-round w3-ripple w3-green">Login With Facebook
-                          <i class="w3-margin-left glyphicon glyphicon-home"></i>
-                        </button>
+                     
                        
                     
-                        <button  onClick="parent.location='index_e.html'" class="w3-button w3-round w3-ripple w3-green"> Login With Face </button>
+                        <button id="face_btn" class="w3-button w3-round w3-ripple w3-green"  onclick="document.getElementById('id03').style.display='block'; set_webcam()"> Login With Face </button>
                       
+
+                        <button id="facebook-button" class="w3-button w3-round w3-ripple w3-green">Login With Facebook
+                            <i class="w3-margin-left glyphicon glyphicon-home"></i>
+                          </button>
               </div>
               <div class="w3-half w3-container">
                   
@@ -190,6 +186,40 @@
   </div>
 
 
+  <div id="id03" class="w3-modal">
+      <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:360px">
+  
+        <div class="w3-center"><br>
+          <span onclick="document.getElementById('id03').style.display='none'; reset_webcam();" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+        </div>
+        <br>
+        <br>
+        <button id="take_btn" class="w3-button w3-red" onClick="take_snapshot()" >Take Snap Shot </button>
+        <br> 
+        <div class="w3-padding">
+          <div class="w3-card-4" id="my_camera" style="left: 200px;"></div>
+        </div>
+          <div id="results" ></div>
+
+        
+        <br>
+        
+        <button id="recognize_btn" class="w3-button w3-green" onclick="recognize()" style="display: none;">Recognize</button>
+        
+
+        
+        
+        <div id="load" class="loader" style="display:none"></div>
+        <p id="final"></p>
+
+
+        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+          <button onclick="document.getElementById('id03').style.display='none'; reset_webcam();" type="button" class="w3-button w3-red">Cancel</button>
+          
+        </div>
+  
+      </div>
+    </div>
 
 
 
@@ -198,10 +228,13 @@
 
 </div>
 
+
+
 <script>
   // Get the modal
   var modal1 = document.getElementById('id01');
   var modal2 = document.getElementById('id02');
+  var modal3 = document.getElementById('id03');
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal1) {
@@ -209,6 +242,10 @@
     }
     if (event.target == modal2) {
       modal2.style.display = "none";
+    }
+    if (event.target == modal3) {
+      modal3.style.display = "none";
+      reset_webcam();
     }
   }
   
@@ -237,6 +274,61 @@
 
   })
 </script>
+
+<script language="JavaScript">
+    
+    
+    
+
+
+        function set_webcam(){
+            
+            //document.getElementById("my_camera").style.display="none";
+            Webcam.set({
+            width: 320,
+            height: 240,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+            });
+            Webcam.attach( '#my_camera' );
+    
+        }
+       function reset_webcam(){
+        document.getElementById("my_camera").style.display="block";
+        document.getElementById("take_btn").style.display="block";
+        document.getElementById("recognize_btn").style.display="none";
+        //set_webcam();
+        document.getElementById("match").src="";
+        Webcam.reset();
+
+       }
+       
+       
+       function take_snapshot() {
+       document.getElementById("my_camera").style.display="none";
+
+       document.getElementById("take_btn").style.display="none";
+       
+       document.getElementById("recognize_btn").style.display="block";
+
+        // take snapshot and get image data
+        Webcam.snap( function(data_uri) {
+         // display results in page
+         document.getElementById('results').innerHTML = 
+         '<img class="w3-padding w3-card-4" id="match" src="'+data_uri+'"/>';
+         } );
+    
+         //console.log(document.getElementById('result').innerHTML);
+         //document.getElementById("my_camera").style.display="none";
+        // document.getElementById('my_camera').style.display="block";
+         //reset_webcam();
+         Webcam.reset();
+         
+       }
+    
+       
+       
+       </script>
 
 </body>
 </html>
