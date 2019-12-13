@@ -132,7 +132,7 @@
                   
                 <div class="w3-container"> 
                   <div class="w3-center">
-                  <i id="load" class="w3-jumbo w3-spin fa fa-home" style="display:none"></i>
+                  <i id="load1" class="w3-jumbo w3-spin fa fa-home" style="display:none"></i>
                 </div>
                 </div> 
                 </div>
@@ -208,8 +208,12 @@
         
 
         
+        <div class="w3-container"> 
+            <div class="w3-center">
+            <i id="load2" class="w3-jumbo w3-spin fa fa-home" style="display:none"></i>
+          </div>
+          </div> 
         
-        <div id="load" class="loader" style="display:none"></div>
         <p id="final"></p>
 
 
@@ -229,32 +233,26 @@
 </div>
 
 
-
 <script>
-  // Get the modal
-  var modal1 = document.getElementById('id01');
-  var modal2 = document.getElementById('id02');
-  var modal3 = document.getElementById('id03');
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal1) {
-      modal1.style.display = "none";
-    }
-    if (event.target == modal2) {
-      modal2.style.display = "none";
-    }
-    if (event.target == modal3) {
-      modal3.style.display = "none";
-      reset_webcam();
-    }
+var modal1 = document.getElementById('id01');
+var modal2 = document.getElementById('id02');
+var modal3 = document.getElementById('id03');
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal1) {
+    modal1.style.display = "none";
   }
-  
-    
-  
-  </script>
+  if (event.target == modal2) {
+    modal2.style.display = "none";
+  }
+  if (event.target == modal3) {
+    modal3.style.display = "none";
+    reset_webcam();
+  }
+}
 
-<script>
-  $('#facebook-button').on('click', function() {
+
+$('#facebook-button').on('click', function() {
     // Initialize with your OAuth.io app public key
     OAuth.initialize('gwwD4469muVLwCbbRc5AbOB2iQY')
       OAuth.popup('facebook').done(function(result) {
@@ -273,62 +271,13 @@
 
 
   })
+
 </script>
 
-<script language="JavaScript">
     
     
     
 
-
-        function set_webcam(){
-            
-            //document.getElementById("my_camera").style.display="none";
-            Webcam.set({
-            width: 320,
-            height: 240,
-            image_format: 'jpeg',
-            jpeg_quality: 90
-            });
-            Webcam.attach( '#my_camera' );
-    
-        }
-       function reset_webcam(){
-        document.getElementById("my_camera").style.display="block";
-        document.getElementById("take_btn").style.display="block";
-        document.getElementById("recognize_btn").style.display="none";
-        //set_webcam();
-        document.getElementById("match").src="";
-        Webcam.reset();
-
-       }
-       
-       
-       function take_snapshot() {
-       document.getElementById("my_camera").style.display="none";
-
-       document.getElementById("take_btn").style.display="none";
-       
-       document.getElementById("recognize_btn").style.display="block";
-
-        // take snapshot and get image data
-        Webcam.snap( function(data_uri) {
-         // display results in page
-         document.getElementById('results').innerHTML = 
-         '<img class="w3-padding w3-card-4" id="match" src="'+data_uri+'"/>';
-         } );
-    
-         //console.log(document.getElementById('result').innerHTML);
-         //document.getElementById("my_camera").style.display="none";
-        // document.getElementById('my_camera').style.display="block";
-         //reset_webcam();
-         Webcam.reset();
-         
-       }
-    
-       
-       
-       </script>
 
 </body>
 </html>
