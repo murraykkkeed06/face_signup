@@ -144,6 +144,8 @@ app.post('/', function(req, res){
    }
 });
 
+
+
 app.post('/check',function(req, res){
 
    var userInfo = req.body;
@@ -247,7 +249,36 @@ app.post('/face_check',function (req, res){
 
 });
 
+app.post('/checkSubmit',function(req,res){
+  
+      
 
+    var userInfo = req.body;
+      
+      //res.send(response);
+   
+
+   Person.find({name: userInfo.name , password: userInfo.pwd}, "nationality", 
+      function(err, response){
+      
+         if(response[0] == null){
+            //res.render('welcome_back', {
+            //   message: "Sorry, you provided worng info", type: "error"
+            //});
+            res.send({type: "error"});
+         }
+         else{
+           // res.render('welcome_back', {
+           //    message: "hi", type:"success", person: userInfo, country: response[0].nationality
+           // });
+            res.send({person:userInfo, country: response[0].nationality, type:"success"})
+         }
+            
+         
+      
+   });
+
+});
 
 
 app.post('/face_match',function(req, res){

@@ -112,9 +112,9 @@ async function myFunction(){
         });
 
         
-        setTimeout(function(){
+        //setTimeout(function(){
             window.location = "../login_form.html";
-        },1000);
+        //},1000);
 
 
 
@@ -229,7 +229,7 @@ Webcam.snap( function(data_uri) {
                         if (n<0){
                             //document.getElementById("final").innerHTML="Welcome back " + bestMatch.toString();
                         
-
+                            //change to backend
                             window.location = '/face_final?name='+bestMatch.toString();
                         
 
@@ -237,12 +237,12 @@ Webcam.snap( function(data_uri) {
                         }
                         
                     }catch{
-                        console.log("error fetchin face descriptor");
+                        console.log("error fetching face descriptor");
                         
                     }
                     if(checknum == responseLength-1)
                             //document.getElementById("final").innerHTML="Cannot recognize";
-                            alert("Error Sign In!")
+                            alert("Error Sign In")
                             window.location = './login_form.html';
                     
                     }
@@ -277,3 +277,23 @@ Webcam.snap( function(data_uri) {
             
             
             
+function checkSubmit(){
+
+    var submitName = document.getElementById("submit_username").value;
+    var submitPassword = document.getElementById("submit_password").value;
+
+        
+    $.post("/checkSubmit",{ name: submitName, pwd: submitPassword }).then(function(res){
+
+        console.log(res.type);
+        if(res.type == "success"){
+            //change to backend
+        }else{
+            alert("Error Sign In");
+        }
+
+    });
+
+
+
+}

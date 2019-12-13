@@ -86,14 +86,15 @@
                               <p class = "w3-xlarge" >Login</p>
                           </div>
                       
-                          <form class="w3-container" action="/check"  method = "POST">
+                        <!--  <form class="w3-container" action="/check"  method = "POST"> -->
+                            <form class="w3-container" onsubmit="checkSubmit(); return false;">
                             <p>
                             <label>Username</label></p>
-                            <input class="w3-input" type="text" name="username" required>
+                            <input id="submit_username" class="w3-input" type="text" name="username" placeholder="murray" required>
                             
                             <p>     
                                 <label>Password</label></p>
-                            <input class="w3-input" type="password" name="password" required>
+                            <input id="submit_password" class="w3-input" type="password" name="password" placeholder="" required>
                     
                             <p>     
                                 <input class="w3-input" type="submit" value="Submit">
@@ -172,7 +173,7 @@
           <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
           <label><b>Nationality</b></label>
           <input class="w3-input w3-border" type="text" placeholder="Enter Nationality" name="nationality" required>
-          <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Login</button>
+          <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Sign Up</button>
           
         </div>
       </form>
@@ -260,11 +261,12 @@ $('#facebook-button').on('click', function() {
           // do some stuff with result
           result.me().then(function(data) {
               // do something with `data`, e.g. print data.name
-              alert(data.name);
-              setTimeout(function(){
-                window.location = '/fbcall?name='+data.name;
-              },1000); 
-          })
+              //alert(data.name);
+              //setTimeout(function(){
+              //  window.location = '/fbcall?name='+data.name;
+              //},1000); 
+              //change to backend
+            })
       })
 
 
