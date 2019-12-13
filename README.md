@@ -11,9 +11,8 @@
 
 1.Install MongoDb 
 
-2.Do as following
+2.Do 
 
- From github
 ```
 git clone https://github.com/murraykkkeed06/face_signup.git
 
@@ -37,7 +36,7 @@ node showData.js
 #check data in face database
 node showFaceData.js
 
-'''
+```
 
 ## Issue
 
