@@ -22,7 +22,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(upload.array()); 
 
-mongoose.connect('mongodb://localhost/my_db');
+//mongoose.connect('mongodb://localhost/my_db');
+
+
+mongoose.connect('mongodb://localhost/my_db',{ useNewUrlParser: true })
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
+
 
 //Database for username/password signup
 var personSchema = mongoose.Schema({
