@@ -14,11 +14,12 @@
 3. blablalba
 
 ## Check data
-'''
+
+```
 #check data in user database
 node showData.js
 
 #check data in face database
 node showFaceData.js
 
-'''
+```
