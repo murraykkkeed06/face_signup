@@ -37,7 +37,7 @@ window.onload = function(){
             if(files.length!=3){
                 alert("Please Pick Just Three Picture!");
                 
-                window.location = "./login_form.html";
+                window.location = "./index.html";
                
             }
         });
@@ -113,7 +113,7 @@ async function myFunction(){
 
         
         //setTimeout(function(){
-            window.location = "../login_form.html";
+            window.location = "../index.html";
         //},1000);
 
 
@@ -245,7 +245,7 @@ Webcam.snap( function(data_uri) {
                     if(checknum == responseLength-1)
                             //document.getElementById("final").innerHTML="Cannot recognize";
                             alert("Error Sign In")
-                            window.location = './login_form.html';
+                            window.location = './index.html';
                     
                     }
 
