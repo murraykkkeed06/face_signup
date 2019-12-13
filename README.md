@@ -40,5 +40,4 @@ node showFaceData.js
 
 ## Issue
 
-* If you try to run docker with widows, please go to [192.168.0.1:300](http://192.168.0.1:3000) instead
-* Since access webcam in docker environment need to tranfer usb device, upload image will be used instead 
+* For docker version, please change branch to docker_v
