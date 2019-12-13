@@ -1,15 +1,17 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var upload = multer();
-var app = express();
 var mongoose = require('mongoose');
 const path = require('path');
+
+var upload = multer();
+var app = express();
 
 
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, './models')));
 app.use(express.static(path.join(__dirname, './face-api.js/dist')));
+app.use(express.static(path.join(__dirname, './webcamjs-master')));
 app.use(express.static(path.join(__dirname, './CSS')));
 app.use(express.static(path.join(__dirname, './JS')));
 
@@ -82,11 +84,7 @@ app.post('/', function(req, res){
 //save face data in database
 app.post('/face_check',function (req, res){
   
-   var faceInfo = req.body; //Get the parsed information
-   console.log(faceInfo.name);
-   console.log(faceInfo.face1.length);
-   console.log(faceInfo.face2.length);
-   console.log(faceInfo.face3.length);
+   var faceInfo = req.body; //Get the parsed informatio
 
    var emptyls = []
 
@@ -126,9 +124,11 @@ app.post('/checkSubmit',function(req,res){
       
    Person.find({name: userInfo.name , password: userInfo.pwd}, "nationality", 
       function(err, response){
-      
+         if(err)
+            console.log("error checking user data")
          if(response[0] == null){
             res.send({type: "error"});
+            console.log("error checking user data")
          }
          else{
             res.send({person:userInfo.name, country: response[0].nationality, type:"success"})
@@ -141,11 +141,12 @@ app.post('/checkSubmit',function(req,res){
 app.post('/face_match',function(req, res){
 
    Face.find(function(err, response){
-
+      if(err)
+         console.log("error finding face data")
       res.send(response);
       }
    );
 });
 
 
-app.listen(3000);
+app.listen(3000,'0.0.0.0');
