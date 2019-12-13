@@ -47,6 +47,7 @@ node showData.js
 node showFaceData.js
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 '''
 
 ## Demo
@@ -96,6 +97,8 @@ node showData.js
 #check data in face database
 node showFaceData.js
 
+=======
+>>>>>>> de6fbf76bf6ad1e3fb544290ef0a9c412a036303
 ```
 
 ## issue
