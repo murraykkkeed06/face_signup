@@ -230,7 +230,9 @@ Webcam.snap( function(data_uri) {
                             //document.getElementById("final").innerHTML="Welcome back " + bestMatch.toString();
                         
                             //change to backend
-                            window.location = '/face_final?name='+bestMatch.toString();
+                            var point = bestMatch.toString().indexOf("(");
+                            var name = bestMatch.toString().substring(0, point);
+                            window.location = '/welcome?name='+name;
                         
 
                             break;
@@ -288,6 +290,8 @@ function checkSubmit(){
         console.log(res.type);
         if(res.type == "success"){
             //change to backend
+            console.log(res.person);
+            window.location="/welcome?name="+res.person;
         }else{
             alert("Error Sign In");
         }

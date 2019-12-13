@@ -92,6 +92,13 @@ app.get('/fbcall',function(req,res){
 
 });
 
+app.get('/welcome',function(req,res){
+   if(req){
+      console.log(req.query);
+      res.render('welcome',{name : req.query.name});
+   }
+});
+
 app.get('/face_final',function(req,res){
    if(req)
       //console.log(req.query.name);
@@ -271,7 +278,7 @@ app.post('/checkSubmit',function(req,res){
            // res.render('welcome_back', {
            //    message: "hi", type:"success", person: userInfo, country: response[0].nationality
            // });
-            res.send({person:userInfo, country: response[0].nationality, type:"success"})
+            res.send({person:userInfo.name, country: response[0].nationality, type:"success"})
          }
             
          

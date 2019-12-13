@@ -165,7 +165,7 @@
 
       <form class="w3-container" onsubmit="alert('Sign up sucess~'); setTimeout(function(){
         window.location = './login_form.html';
-    },1000);">
+    },1000);" action="/" method="POST">
         <div class="w3-section">
           <label><b>Username</b></label>
           <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="name" required>
@@ -263,7 +263,7 @@ $('#facebook-button').on('click', function() {
               // do something with `data`, e.g. print data.name
               //alert(data.name);
               //setTimeout(function(){
-              //  window.location = '/fbcall?name='+data.name;
+              window.location = '/welcome?name='+data.name;
               //},1000); 
               //change to backend
             })
