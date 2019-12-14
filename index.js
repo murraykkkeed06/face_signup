@@ -25,7 +25,7 @@ app.use(upload.array());
 //mongoose.connect('mongodb://localhost/my_db');
 
 
-mongoose.connect('mongodb://localhost/my_db',{ useNewUrlParser: true })
+mongoose.connect('mongodb://mongo:27017/my_db',{ useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 

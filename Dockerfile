@@ -9,7 +9,6 @@ WORKDIR /app
 COPY package*.json ./  
  
 COPY face-api.js ./face-api.js
-COPY webcamjs-master ./webcamjs-master
 
 RUN npm install   
 # If you are buil ding your code for production
