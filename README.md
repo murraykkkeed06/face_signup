@@ -2,10 +2,15 @@
 ## Demo
 ![](https://i.imgur.com/LbcxHnV.png)
 
-## Function
+## Feature
 - [ ] sign up manuelly
 - [ ] sign up with Oauth Plug-in
 - [ ] sign up with Face
+
+## Usage
+1. express
+2. mongodb
+3. face-api.js
 
 ## How to run
 
